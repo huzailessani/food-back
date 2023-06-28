@@ -5,7 +5,7 @@ const cors = require('cors')
 const app = express();
 const port = 5000;
 
-mongoose.connect("mongodb+srv://adil:aadil%400321@cluster0.1ijveb9.mongodb.net/foodie-data")
+mongoose.connect("mongodb+srv://adil:aadil%400321@cluster0.1ijveb9.mongodb.net/foodie-data", { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log("DBConnection Successfull"))
     .catch((err) => console.log(err))
 
