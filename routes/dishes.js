@@ -1,20 +1,22 @@
 const express = require('express');
+const router = express.Router();
 const Dishes = require('../models/dishes')
 
-const dishRouter = express.Router();
+
 // const dishesJson = require('../../client/src/dishes.json');
 
-dishRouter.get("/dishes", async (req, res) => {
+router.get("/dishes", async (req, res) => {
     try {
         const dishes = await Dishes.find({});
-        res.json(dishes);
+        res.status(200).json(dishes);
+        ;
     } catch (error) {
         console.log(error);
         res.status(500).json({ error: 'Internal Server Error' });
     }
 });
 
-dishRouter.post('/dishes', async (req, res) => {
+router.post('/dishes', async (req, res) => {
     try {
         const dishes = await Dishes.create(req.body);
         const saveDish = await dishes.save();
@@ -25,7 +27,7 @@ dishRouter.post('/dishes', async (req, res) => {
     }
 });
 
-dishRouter.delete('/dishes/:id', async (req, res) => {
+router.delete('/dishes/:id', async (req, res) => {
     try {
         const deletedDish = await Dishes.findByIdAndRemove(req.params.id);
         if (!deletedDish) {
@@ -38,4 +40,4 @@ dishRouter.delete('/dishes/:id', async (req, res) => {
     }
 });
 
-module.exports = dishRouter
+module.exports = router
